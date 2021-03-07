@@ -1,0 +1,123 @@
+i = '15 + 6'
+
+i = i.replace(' ','')
+
+print(i)
+
+n = extraerValoresNumericos(i)
+print(n)
+if extraerOperacion(i):
+    r = operacionSuma(int(n[0]),int(n[1]))
+else:
+    r = operacionResta(int(n[0]),int(n[1]))
+
+print('El resultado es:',r)
+
+# def verificarEstructuraDeLaEntrada(n1, n2, sgn):
+#     # myPattern = re.compile('([0-9]{1,4})[+-]([0-9]{1,4})')
+
+#     # # return re.match(myPattern,entrada) is not None
+#     # return myPattern.match(entrada) is not None
+
+#     return verificarLongitudOperandos(n1) and verificarLongitudOperandos(n2) and verificarOperadoresValidos(sgn)
+
+# def extraerValoresNumericos(entrada):
+#     return re.split(r'[+]|[-]|[/]|[*]',entrada)
+
+# def extraerOperacion(entrada):
+#     if re.search('[+]', entrada) is not None:
+#         return '+'
+#     elif re.search('[-]', entrada) is not None:
+#         return '-'
+#     else:
+#         return 'a'
+
+def operacionSuma(operador1, operador2):
+    return operador1 + operador2
+
+def operacionResta(operador1, operador2):
+    return operador1 - operador2
+
+# # `Error: Too many problems.`
+def verificarLongitudEntrada(entrada):
+    return len(entrada) > 5
+
+# # `Error: Operator must be '+' or '-'.`
+# def verificarOperadoresValidos(entrada):
+#     return re.search('[+]|[-]',entrada) is not None
+
+# # `Error: Numbers cannot be more than four digits.`
+# def verificarLongitudOperandos(entrada):
+#     return len(entrada) <= 4
+
+# # `Error: Numbers must only contain digits.`
+# def verificarTipoOperandos(entrada):
+#     return entrada.isdigit()
+
+def impresionFormatoVertical(operando1, operando2, signo, resultado):
+    list1 = []
+    list2 = []
+    list3 = []
+    list4 = []
+
+    if len(operando1) >= len(operando2):
+        t = (len(operando1) + 2)
+
+    else:
+        t = (len(operando2) + 2)
+
+    t1 = (t - len(operando1))
+    t2 = (t - len(operando2))
+    t4 = (t - len(resultado))
+
+    for i in range(0, t):
+        centrarDerecha(list1,operando1,i,t1)
+        centrarDerecha(list2,operando2,i,t2,signo,True)
+        list3.append('-')
+        centrarDerecha(list4,resultado,i,t4)
+    
+    return list1, list2, list3, list4
+
+def centrarDerecha(lista, cadena, iterador, limite, signo = '', tieneSigno = False):
+    if iterador < limite:
+        if tieneSigno:
+            if iterador == 0:
+                lista.append(signo)
+            else:
+                lista.append(' ')                    
+        else:
+            lista.append(' ')
+    else:
+        lista.append(cadena[iterador - limite])
+
+def separador(lista):
+    for i in range(0,4):
+        lista.append(' ')
+
+def separadorOperaciones(operando1, operador2, signo, resultado):
+    separador(operando1)
+    separador(operador2)
+    separador(signo)
+    separador(resultado)
+
+def impresionFila(lista):
+    for elemento in lista:
+        print(elemento, end=' ')
+    print()
+
+def impresionCompleta(operador1,operador2,signo, resultado, tieneResultado = False):
+    a = []
+
+    a.extend(operador1)
+    a.extend('\n')
+    a.extend(operador2)
+    a.extend('\n')
+    a.extend(signo)
+
+    if tieneResultado:
+        a.extend('\n')
+        a.extend(resultado)
+    
+    return a
+    
+# print(verificarEstructuraDeLaEntrada('452/010011'))
